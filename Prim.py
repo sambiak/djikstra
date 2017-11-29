@@ -23,7 +23,22 @@ def prim(racine, graphe):
         exploré.add(pivot)
     return d, prédécesseur
 
+villes = ["Mans,Belgium", "Bruyes,Belgium", "Bruxelles,Belgium", "Anvers,Belgium", "Namur,Belgium", "Lieje,Belgium", "Arlan,Belgium"]
 
-donnees = urlopen("""https://maps.googleapis.com/maps/api/distancematrix/json?units=standard&origins=Washington,DC&destinations=New+York+City,NY&key=%20AIzaSyCCjU5nzk7PLRkBtn9vH3yPx7YoXauPB3o""",None)
+origin = ""
+for i, ville in enumerate(villes):
+    if i == 0:
+        origin += ville
+    else:
+        origin += "|" + ville
+print(origin)
+
+key = "%20AIzaSyCCjU5nzk7PLRkBtn9vH3yPx7YoXauPB3o"
+url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=standard&origins=" + origin + "&destinations=" + origin + "&key=" + key
+print(url)
+donnees = urlopen(url)
 str_response = donnees.read().decode('utf-8')
-print(json.loads(str_response))
+print(json.loads(str_response)['rows'])
+#donnees = urlopen("""https://maps.googleapis.com/maps/api/distancematrix/json?units=standard&origins=Washington,DC&destinations=New+York+City,NY&key=%20AIzaSyCCjU5nzk7PLRkBtn9vH3yPx7YoXauPB3o""",None)
+#str_response = donnees.read().decode('utf-8')
+#print(json.loads(str_response)['rows']['elements']['duration']['value'])
