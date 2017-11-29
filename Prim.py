@@ -1,3 +1,7 @@
+from urllib.request import urlopen
+import json
+import string
+
 def prim(racine, graphe):
     exploré = {racine}
     d = {racine: 0}
@@ -18,3 +22,8 @@ def prim(racine, graphe):
                     pivot = s
         exploré.add(pivot)
     return d, prédécesseur
+
+
+donnees = urlopen("""https://maps.googleapis.com/maps/api/distancematrix/json?units=standard&origins=Washington,DC&destinations=New+York+City,NY&key=%20AIzaSyCCjU5nzk7PLRkBtn9vH3yPx7YoXauPB3o""",None)
+str_response = donnees.read().decode('utf-8')
+print(json.loads(str_response))
