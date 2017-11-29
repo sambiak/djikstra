@@ -39,6 +39,17 @@ print(url)
 donnees = urlopen(url)
 str_response = donnees.read().decode('utf-8')
 print(json.loads(str_response)['rows'])
+
+liste_de_elements = json.loads(str_response)['rows']
+
+G = dict()
+for i, ville in enumerate(villes):
+    G[ville] = dict()
+    for j, dest_ville in enumerate(liste_de_elements[i]["elements"]):
+        if i != j:
+            G[ville][villes[j]] = dest_ville["duration"]["value"]
+
+
 #donnees = urlopen("""https://maps.googleapis.com/maps/api/distancematrix/json?units=standard&origins=Washington,DC&destinations=New+York+City,NY&key=%20AIzaSyCCjU5nzk7PLRkBtn9vH3yPx7YoXauPB3o""",None)
 #str_response = donnees.read().decode('utf-8')
 #print(json.loads(str_response)['rows']['elements']['duration']['value'])
